@@ -1,11 +1,11 @@
 class Ship {
-  constructor(length, x, y){
+  constructor(length){
     this.name = this.name(length);
     this.length = length;
     this.hitBox = Array(length);
     this.sunk = false;
-    this.x = x;
-    this.y = y;
+    this.x = null;
+    this.y = null;
   }
   hit(index){
     this.hitBox[index] = 'hit';
