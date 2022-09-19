@@ -4,10 +4,10 @@ class Ship {
     this.length = length;
     this.hitBox = Array(length);
     this.sunk = false;
-    this.x = null;
-    this.y = null;
+    this.hit = 0;
   }
-  hit(index){
+
+  hitSquare(index){
     this.hitBox[index] = 'hit';
   }
 
@@ -17,6 +17,7 @@ class Ship {
     else if(length === 3) return 'destroyer'
     else if(length === 2) return 'submarine'
     else if(length === 1) return 'patrol boat'
+    else if(length < 1) return null;
   }
 
   isSunk(){
@@ -29,5 +30,4 @@ class Ship {
   }
 }
 
-Object.freeze(Ship);
 module.exports = Ship;

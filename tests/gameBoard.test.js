@@ -3,9 +3,10 @@ const Ship = require('../modules/battleShip');
 
 const board = new gameBoard();
 const carrier = new Ship(5);
+describe("Game Board Object", ()=>{
 
-test ('Game Board rows', ()=>{
-  expect(board.getBoard.length).toBe(10);
+  test ('Game Board rows', ()=>{
+    expect(board.getBoard.length).toBe(10);
 })
 
 test ('Game Board columns', ()=>{
@@ -13,7 +14,7 @@ test ('Game Board columns', ()=>{
 })
 
 test ('Initial Ship obj', ()=>{
-  const obj = {shipName: null, shipLength:null, hitted: 0}
+  const obj = {emptySquare: true, hitted: 0}
   expect(board.getBoard[0][0]).toEqual(obj);
 })
 
@@ -21,9 +22,51 @@ test ('Place ship', ()=>{
   let x = 1;
   let y = 2;
   board.placeShip(carrier, x, y);
-
-  expect(board.getBoard[x][y]).toEqual({shipName: carrier.name, shipLength:carrier.length, hitted: 0})
+  
+  
   for(let i = 0; i < carrier.length; i++){
-    expect(board.getBoard[x][y + i]).toEqual({shipName: carrier.name, shipLength:carrier.length, hitted: 0})
-  }
+    expect(board.getBoard[x][y + i]).toEqual({shipName: carrier.name, 
+      shipSquareID: i, hitted: 0});
+    }   
+    // console.log(board.getBoard); 
+  })
+  
+  test ('Hit Ship', ()=>{
+    let x = 1;
+    let y = 2;
+    board.receiveAttack(x, y);
+    expect(board.getBoard[x][y].hitted).toBe(1);
+    
+    carrier.hitSquare(board.getBoard[x][y].shipSquareID);
+    expect(carrier.hitBox[0]).toBe('hit');
+  })
+  
+  test ('Sink ship', ()=>{
+    let x = 2;
+    let y = 2;
+    const patrolBoat = new Ship(1);
+    board.placeShip(patrolBoat, x, y);
+
+    square = board.getBoard[x][y].shipSquareID;
+    board.receiveAttack(x, y);
+    patrolBoat.hitSquare(square);
+    
+    
+    patrolBoat.isSunk();
+    expect(patrolBoat.sunk).toBe(true);
+    })
+  
+  test ('Failed Shot', ()=>{
+    let x = 2;
+    let y = 7;
+    const patrolBoat = new Ship(1);
+    board.placeShip(patrolBoat, x, y);
+
+    square = board.getBoard[x][6].shipSquareID;
+    board.receiveAttack(x, 6);
+    expect(board.getBoard[x][6].hitted).toBe(1);
+  
+    patrolBoat.isSunk();
+    expect(patrolBoat.sunk).toBe(false);
+    })
 })
