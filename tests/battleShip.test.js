@@ -1,6 +1,6 @@
 const Ship = require ('../modules/battleShip');
 
-const carrier = new Ship(5, 5, 6);
+const carrier = new Ship(5);
 
 test('carrier', ()=>{
   expect(carrier.length).toBe(5);
