@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch-test": "jest --watch gameBoard.test.js"
+    "watch-test": "jest --watch player.test.js"
   },
   "keywords": [],
   "author": "",
