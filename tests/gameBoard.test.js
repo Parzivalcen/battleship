@@ -78,16 +78,58 @@ test ('Place ship', ()=>{
     const patroluka = new Ship(1);
     board.placeShip(patrolBoat, x, y);
     board.placeShip(patroluka, x+4, y);
-    const shipsArray = [patrolBoat, patroluka]
     board.receiveAttack(x, y);
     board.receiveAttack(x+4, y);
     square = board.getBoard[x][y].shipSquareID;
     square = board.getBoard[x+4][y].shipSquareID;
     
     patrolBoat.hitSquare(square);
+    patrolBoat.isSunk();
     patroluka.hitSquare(square);
+    patroluka.isSunk();
+    const shipsArray = [patrolBoat, patroluka]
     
-    console.log(patrolBoat.sunk);
+    expect(board.allSunk(shipsArray)).toBe(true);
+  })
+
+  test ('Check if all ship inside are sunk with different ship sizes', ()=>{
+    let x = 2;
+    let y = 2;
+    const board = new gameBoard();
+    const destroyer = new Ship(3);
+    const patroluka = new Ship(1);
+    const carrier = new Ship(5);
+    const shipsArray = []
+    let square;
+    
+    board.placeShip(destroyer, x, y);
+    board.placeShip(patroluka, x+4, y);
+    board.placeShip(carrier, x+2, y);
+    let i = 0;
+    while(!destroyer.isSunk()){
+      board.receiveAttack(x, y + i);
+      square = board.getBoard[x][y+i].shipSquareID;
+      destroyer.hitSquare(square);
+      i++
+    }
+    shipsArray.push(destroyer);
+    i = 0;
+    
+    while(!carrier.isSunk()){
+      board.receiveAttack(x+2, y + i);
+      square = board.getBoard[x+2][y+i].shipSquareID;
+      carrier.hitSquare(square);
+      i++
+    }
+    shipsArray.push(carrier);
+    
+    // Patrol luka
+    board.receiveAttack(x+4, y);
+    square = board.getBoard[x+4][y].shipSquareID;
+    patroluka.hitSquare(square);
+    patroluka.isSunk();
+    shipsArray.push(patroluka);
+    
     expect(board.allSunk(shipsArray)).toBe(true);
   })
 })
