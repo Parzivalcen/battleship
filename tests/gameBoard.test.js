@@ -26,7 +26,7 @@ test ('Place ship', ()=>{
   
   for(let i = 0; i < carrier.length; i++){
     expect(board.getBoard[x][y + i]).toEqual({shipName: carrier.name, 
-      shipSquareID: i, hitted: 0});
+      shipSquareID: i, hitted: 0, sunk: false});
     }   
     // console.log(board.getBoard); 
   })
@@ -54,19 +54,40 @@ test ('Place ship', ()=>{
     
     patrolBoat.isSunk();
     expect(patrolBoat.sunk).toBe(true);
-    })
+  })
   
   test ('Failed Shot', ()=>{
     let x = 2;
     let y = 7;
     const patrolBoat = new Ship(1);
     board.placeShip(patrolBoat, x, y);
-
+    
     square = board.getBoard[x][6].shipSquareID;
     board.receiveAttack(x, 6);
     expect(board.getBoard[x][6].hitted).toBe(1);
-  
+    
     patrolBoat.isSunk();
     expect(patrolBoat.sunk).toBe(false);
-    })
+  })
+  
+  test ('Check if all ship inside are sunk', ()=>{
+    let x = 2;
+    let y = 2;
+    const board = new gameBoard();
+    const patrolBoat = new Ship(1);
+    const patroluka = new Ship(1);
+    board.placeShip(patrolBoat, x, y);
+    board.placeShip(patroluka, x+4, y);
+    const shipsArray = [patrolBoat, patroluka]
+    board.receiveAttack(x, y);
+    board.receiveAttack(x+4, y);
+    square = board.getBoard[x][y].shipSquareID;
+    square = board.getBoard[x+4][y].shipSquareID;
+    
+    patrolBoat.hitSquare(square);
+    patroluka.hitSquare(square);
+    
+    console.log(patrolBoat.sunk);
+    expect(board.allSunk(shipsArray)).toBe(true);
+  })
 })

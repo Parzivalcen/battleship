@@ -17,7 +17,7 @@ class gameBoard {
   placeShip(ship, x, y){
     for(let i = 0 ; i < ship.length; i++){
       this.getBoard[x][y + i] = {shipName: ship.name, 
-        shipSquareID: i, hitted: 0};
+        shipSquareID: i, hitted: 0, sunk: ship.sunk};
     }
   }
 
@@ -28,6 +28,12 @@ class gameBoard {
     
   }
 
+  allSunk(shipsArray){
+    for(let i = 0;  i < shipsArray.length; i ++){
+      if(shipsArray[i].sunk === false) return false;
+    }
+    return true;
+  }
 
   
 }
