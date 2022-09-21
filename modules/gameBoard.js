@@ -8,7 +8,7 @@ class gameBoard {
     for (let i = 0; i < 10; i++) {
       board[i] = [];
       for (let j = 0; j < 10; j++) {
-        board[i][j] = {emptySquare: true, hitted: 0};
+        board[i][j] = {shipName: false, emptySquare: true, hitted: 0};
       }
     }
     return board;
@@ -16,14 +16,18 @@ class gameBoard {
 
   placeShip(ship, x, y){
     for(let i = 0 ; i < ship.length; i++){
-      this.getBoard[x][y + i] = {shipName: ship.name, 
+      this.getBoard[x][y + i] = {shipName: ship, 
         shipSquareID: i, hitted: 0, sunk: ship.sunk};
     }
   }
 
   receiveAttack(x, y){
-
+    // if x, y .name === a boat name, hit that boat
     this.getBoard[x][y].hitted = 1;
+    if(this.getBoard[x][y].shipName.name){
+      this.getBoard[x][y].shipName.hitSquare(this.getBoard[x][y].shipSquareID);
+    }
+
 
     
   }

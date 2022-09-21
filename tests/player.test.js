@@ -8,8 +8,22 @@ describe('Player Tests', ()=>{
     expect(player1.playerName).toBe('one')
   })
   
+  test ('Board receives other player attack', ()=> {
+    const board = new gameBoard();
+    const player1 = new player('one');
+    const player2 = new player('two');
+    // player 2 ship
+    const patrol = new Ship(1);
+    // player 2 places its ship
+    board.placeShip(patrol, 1, 1);
+    // player 1 attacks player board on locaction 1,1
+    player1.attack(1, 1, player2, board);
+    expect(board.getBoard[1][1].hitted).toBe(1)
+  })
+  
   test ('Player can attack other player', ()=> {
     const board = new gameBoard();
+    
     const player1 = new player('one');
     const player2 = new player('two');
     // player 2 ship
@@ -19,6 +33,6 @@ describe('Player Tests', ()=>{
     // player 1 attacks player boad on locaction 1,1
     player1.attack(1, 1, player2, board);
 
-    expect(patrol.hit).toBe(1)
+    expect(patrol.hitBox[0]).toBe('hit')
   })
 })

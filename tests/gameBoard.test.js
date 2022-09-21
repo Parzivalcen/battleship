@@ -14,7 +14,7 @@ test ('Game Board columns', ()=>{
 })
 
 test ('Initial Ship obj', ()=>{
-  const obj = {emptySquare: true, hitted: 0}
+  const obj = {shipName: false, emptySquare: true, hitted: 0}
   expect(board.getBoard[0][0]).toEqual(obj);
 })
 
@@ -25,7 +25,7 @@ test ('Place ship', ()=>{
   
   
   for(let i = 0; i < carrier.length; i++){
-    expect(board.getBoard[x][y + i]).toEqual({shipName: carrier.name, 
+    expect(board.getBoard[x][y + i]).toEqual({shipName: carrier, 
       shipSquareID: i, hitted: 0, sunk: false});
     }   
     // console.log(board.getBoard); 
@@ -37,7 +37,7 @@ test ('Place ship', ()=>{
     board.receiveAttack(x, y);
     expect(board.getBoard[x][y].hitted).toBe(1);
     
-    carrier.hitSquare(board.getBoard[x][y].shipSquareID);
+    // carrier.hitSquare(board.getBoard[x][y].shipSquareID);
     expect(carrier.hitBox[0]).toBe('hit');
   })
   
