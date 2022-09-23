@@ -30,6 +30,20 @@ test ('Place ship', ()=>{
     }   
     // console.log(board.getBoard); 
   })
+
+
+test ('If placement ilegal dont change anything-', ()=>{
+  const board = new gameBoard();
+  const ogBoard = board.getBoard;
+  let x = 1;
+  let y = 10;
+  const carrier = new Ship(5);
+  board.placeShip(carrier, x, y);
+  console.log(board.getBoard[x][y])
+  expect(board.getBoard[x][y]).toBe(undefined);
+  expect(board.getBoard).toBe(ogBoard);
+  })
+
   
   test ('Hit Ship', ()=>{
     let x = 1;

@@ -15,10 +15,12 @@ class gameBoard {
   }
 
   placeShip(ship, x, y){
-    for(let i = 0 ; i < ship.length; i++){
-      this.getBoard[x][y + i] = {shipName: ship, 
-        shipSquareID: i, hitted: 0, sunk: ship.sunk};
-    }
+    if(x < 9 && y < 9){
+      for(let i = 0 ; i < ship.length; i++){
+        this.getBoard[x][y + i] = {shipName: ship, 
+          shipSquareID: i, hitted: 0, sunk: ship.sunk};
+        }
+      }
   }
 
   receiveAttack(x, y){
