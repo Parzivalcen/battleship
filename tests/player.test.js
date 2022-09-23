@@ -1,6 +1,6 @@
-const Ship = require("../modules/battleShip");
-const gameBoard = require("../modules/gameBoard")
-const player = require('../modules/player')
+const Ship = require("../src/modules/battleShip");
+const gameBoard = require("../src/modules/gameBoard")
+const player = require('../src/modules/player')
 
 describe('Player Tests', ()=>{
   test ('Player name', ()=> {

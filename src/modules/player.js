@@ -1,4 +1,4 @@
-const gameBoard = require('../modules/gameBoard');
+const gameBoard = require('./gameBoard');
 class player {
   constructor(name){
     this.playerName = name;
@@ -17,7 +17,7 @@ class player {
   }
 
   // Ai functions
-  aiAttack(player1, board1){
+  aiAttack(board1){
     const x = Math.floor(Math.random() * 10);
     const y = Math.floor(Math.random() * 10);
     board1.receiveAttack(x, y);
