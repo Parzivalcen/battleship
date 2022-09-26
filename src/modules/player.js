@@ -17,12 +17,20 @@ class player {
   }
 
   // Ai functions
+  // test
   aiAttack(board1){
     const x = Math.floor(Math.random() * 10);
     const y = Math.floor(Math.random() * 10);
     board1.receiveAttack(x, y);
     this.endTurn();
     return board1.getBoard[x][y].hitted;
+  }
+  aiAttackS(board1){
+    const x = Math.floor(Math.random() * 10);
+    const y = Math.floor(Math.random() * 10);
+    board1.receiveAttack(x, y);
+    this.endTurn();
+    return [x, y];
   }
 
   // getAttackArray(){
