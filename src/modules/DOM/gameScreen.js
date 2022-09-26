@@ -33,13 +33,17 @@ const gameScreen = {
     // const board = new gameBoard;
     const boardContainer = document.createElement('div');
     //rows
+    let squareCount = 0;
     for(let i = 0; i < 10; i++){
       const row = document.createElement('div');
       row.classList.add('row', `r${i}`);
       boardContainer.appendChild(row);
       for(let j = 0; j <10; j++){
         const square = document.createElement('div');
-        square.classList.add('square', `s${j}`);
+        square.classList.add('square');
+        square.setAttribute('data-x-y', `${i}, ${j}`);
+        square.setAttribute('data-y', j);
+        squareCount ++
         if(gameBoard[i][j].shipName){
           square.classList.add('ship');
         }
@@ -81,11 +85,42 @@ const gameScreen = {
     return board;
   },
 
-  AIattack(){
+  playerAttack(player){
+    const enemyBoard = document.querySelector('.player-2-board')
+    const squares = enemyBoard.querySelectorAll('.square');
+    squares.forEach((square)=>{
+      square.addEventListener('click', ()=>{
+        square.classList.add('hit');
+        player.endTurn();
+      })
+    })
+  
+  },
+
+  AIattack(AIplayer){
+    const coords = AIplayer.aiAttackS(this.placeShipsP1());
+    const boardX = document.querySelector(`[data-x-y ="${coords[0]}, ${coords[1]}"]`)
+    boardX.classList.add('hit');
+    console.log(boardX, coords);
+    AIplayer.endTurn();
+  },
+
+  gameLoop(){
+    const player1 = new player();
     const AIplayer = new player();
-    if(AIplayer.turn){
-      AIplayer.aiAttackS(this.placeShipsP1());
-      AIplayer.endTurn;
+    let won = false
+    let count = 0;
+    while(count < 10){
+      AIplayer.endTurn();
+      console.log(AIplayer.turn);
+      if(player1.turn){
+        this.playerAttack(player1);
+        AIplayer.turn = true;
+      }
+      
+      
+      console.log('round', count)
+      count ++;
     }
 
   }
