@@ -1,6 +1,7 @@
-import './styles/gameStyle.scss';
+import '../../styles/gameStyle.scss';
 import gameBoard from '../gameBoard';
 import Ship from '../battleShip';
+import placeShips from './placeShips';
 import player from '../player';
 const gameScreen = {
   display(){
@@ -29,7 +30,7 @@ const gameScreen = {
   },
 
   renderBoard1(){
-    const gameBoard = this.placeShipsP1().getBoard;
+    const gameBoard = placeShips.placeShipsP1().getBoard;
     // const board = new gameBoard;
     const boardContainer = document.createElement('div');
     //rows
@@ -71,60 +72,6 @@ const gameScreen = {
     }
     return boardContainer.innerHTML;
   },
-
-  placeShipsP1(){
-    const board = new gameBoard();
-    const patrol = new Ship(1);
-    const submarine = new Ship(2);
-    const destroyer = new Ship(3);
-    const battleShip = new Ship(4);
-    const carrier = new Ship(5);
-    board.placeShip(patrol, 1, 1);
-    board.placeShip(submarine, 2, 1);
-    board.placeShip(destroyer, 3, 1);
-    board.placeShip(battleShip, 4, 1);
-    board.placeShip(carrier, 5, 1);
-    return board;
-  },
-  
-  playerAttack(e, player){
-    e.classList.add('hit');
-    player.endTurn();
-  },
-
-  AIattack(player){
-    const coords = player.aiAttackS(this.placeShipsP1());
-    const boardX = document.querySelector(`[data-x-y ="${coords[0]}, ${coords[1]}"]`)
-    boardX.classList.add('hit');
-    console.log(boardX, coords);
-    player.endTurn();
-  },
-
-  gameLoop(){
-    const player1 = new player('one');
-    const AI = new player('AI');
-    // I think using target is a better aproach than event listeners on every square
-    document.querySelector('.player-2-board').addEventListener('click',(e)=>{
-      if(player1.turn) {
-        this.playerAttack(e.target, player1);
-
-        this.AIattack(AI);
-        player1.turn = true;
-      }
-      console.log(e.target);
-    })
-    let count = 0;
-    // while(count < 10){
-    //   AIplayer.endTurn();
-    //   console.log(AIplayer.turn);
-    //   if(player1.turn){
-    //     this.playerAttack(player1);
-    //     AIplayer.turn = true;
-    //   }
-    //   console.log('round', count)
-    //   count ++;
-    // }
-  }
 }
 
 export default gameScreen;
