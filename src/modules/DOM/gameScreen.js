@@ -59,11 +59,13 @@ const gameScreen = {
     //rows
     for(let i = 0; i < 10; i++){
       const row = document.createElement('div');
-      row.classList.add('row');
+      row.classList.add('row', `r${i}`);
       boardContainer.appendChild(row);
       for(let j = 0; j <10; j++){
         const square = document.createElement('div');
         square.classList.add('square');
+        square.setAttribute('data-x-y', `${i}, ${j}`);
+        square.setAttribute('data-y', j);
         row.appendChild(square);
       }
     }
@@ -84,45 +86,44 @@ const gameScreen = {
     board.placeShip(carrier, 5, 1);
     return board;
   },
-
-  playerAttack(player){
-    const enemyBoard = document.querySelector('.player-2-board')
-    const squares = enemyBoard.querySelectorAll('.square');
-    squares.forEach((square)=>{
-      square.addEventListener('click', ()=>{
-        square.classList.add('hit');
-        player.endTurn();
-      })
-    })
   
+  playerAttack(e, player){
+    e.classList.add('hit');
+    player.endTurn();
   },
 
-  AIattack(AIplayer){
-    const coords = AIplayer.aiAttackS(this.placeShipsP1());
+  AIattack(player){
+    const coords = player.aiAttackS(this.placeShipsP1());
     const boardX = document.querySelector(`[data-x-y ="${coords[0]}, ${coords[1]}"]`)
     boardX.classList.add('hit');
     console.log(boardX, coords);
-    AIplayer.endTurn();
+    player.endTurn();
   },
 
   gameLoop(){
-    const player1 = new player();
-    const AIplayer = new player();
-    let won = false
-    let count = 0;
-    while(count < 10){
-      AIplayer.endTurn();
-      console.log(AIplayer.turn);
-      if(player1.turn){
-        this.playerAttack(player1);
-        AIplayer.turn = true;
-      }
-      
-      
-      console.log('round', count)
-      count ++;
-    }
+    const player1 = new player('one');
+    const AI = new player('AI');
+    // I think using target is a better aproach than event listeners on every square
+    document.querySelector('.player-2-board').addEventListener('click',(e)=>{
+      if(player1.turn) {
+        this.playerAttack(e.target, player1);
 
+        this.AIattack(AI);
+        player1.turn = true;
+      }
+      console.log(e.target);
+    })
+    let count = 0;
+    // while(count < 10){
+    //   AIplayer.endTurn();
+    //   console.log(AIplayer.turn);
+    //   if(player1.turn){
+    //     this.playerAttack(player1);
+    //     AIplayer.turn = true;
+    //   }
+    //   console.log('round', count)
+    //   count ++;
+    // }
   }
 }
 
