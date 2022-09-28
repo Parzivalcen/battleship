@@ -26,4 +26,6 @@ board2.placeShip(destroyer2, 2, 1);
 board2.placeShip(battleShip2, 5, 1);
 board2.placeShip(carrier2, 8, 1);
 
-export {board1, board2};
+const shipsArray1 = [patrol, submarine, destroyer, battleShip, carrier]
+const shipsArray2 = [patrol2, submarine2, destroyer2, battleShip2, carrier2]
+export {board1, board2, shipsArray1, shipsArray2};

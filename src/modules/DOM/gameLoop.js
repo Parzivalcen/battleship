@@ -1,11 +1,15 @@
 import player from "../player";
-import {board1, board2} from "./placeShips";
+import {board1, board2, shipsArray1, shipsArray2} from "./placeShips";
 const gameLoop = {
   playerAttack(e, player, AI){
     const coords = e.getAttribute('data-x-y').split(',').map(Number);
     console.log(coords);
     player.attack(coords[0], coords[1], AI, board2)
     e.classList.add('hit');
+    if(board2.getBoard[coords[0]][coords[1]].shipName){
+      board2.getBoard[coords[0]][coords[1]].shipName.isSunk();
+    }
+    console.log(board2.allSunk(shipsArray2))
     player.endTurn();
   },
   
@@ -13,6 +17,7 @@ const gameLoop = {
     const coords = player.aiAttackS(board1);
     
     const boardX = document.querySelector(`[data-x-y ="${coords[0]}, ${coords[1]}"]`)
+    // console.log(board1.getBoard[coords[0]][coords[1]])
     boardX.classList.add('hit');
     // console.log(boardX, coords);
     player.endTurn();
