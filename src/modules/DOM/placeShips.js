@@ -1,35 +1,29 @@
 import Ship from "../battleShip";
 import gameBoard from "../gameBoard";
-const placeShips = {
-  placeShipsP1(){
-    const board = new gameBoard();
-    const patrol = new Ship(1);
-    const submarine = new Ship(2);
-    const destroyer = new Ship(3);
-    const battleShip = new Ship(4);
-    const carrier = new Ship(5);
-    board.placeShip(patrol, 1, 1);
-    board.placeShip(submarine, 2, 1);
-    board.placeShip(destroyer, 3, 1);
-    board.placeShip(battleShip, 4, 1);
-    board.placeShip(carrier, 5, 1);
-    return board;
-  },
 
-  placeShipsAI(){
-    const board = new gameBoard();
-    const patrol = new Ship(1);
-    const submarine = new Ship(2);
-    const destroyer = new Ship(3);
-    const battleShip = new Ship(4);
-    const carrier = new Ship(5);
-    board.placeShip(patrol, 1, 1);
-    board.placeShip(submarine, 3, 1);
-    board.placeShip(destroyer, 2, 1);
-    board.placeShip(battleShip, 5, 1);
-    board.placeShip(carrier, 8, 1);
-    return board;
-  },
-}
+const board1 = new gameBoard();
+const board2 = new gameBoard();
 
-export default placeShips;
+const patrol = new Ship(1);
+const submarine = new Ship(2);
+const destroyer = new Ship(3);
+const battleShip = new Ship(4);
+const carrier = new Ship(5);
+board1.placeShip(patrol, 1, 1);
+board1.placeShip(submarine, 2, 1);
+board1.placeShip(destroyer, 3, 1);
+board1.placeShip(battleShip, 4, 1);
+board1.placeShip(carrier, 5, 1);
+
+const patrol2 = new Ship(1);
+const submarine2 = new Ship(2);
+const destroyer2 = new Ship(3);
+const battleShip2 = new Ship(4);
+const carrier2 = new Ship(5);
+board2.placeShip(patrol2, 1, 1);
+board2.placeShip(submarine2, 3, 1);
+board2.placeShip(destroyer2, 2, 1);
+board2.placeShip(battleShip2, 5, 1);
+board2.placeShip(carrier2, 8, 1);
+
+export {board1, board2};

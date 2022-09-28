@@ -1,16 +1,17 @@
 import player from "../player";
-import placeShips from "./placeShips";
+import {board1, board2} from "./placeShips";
 const gameLoop = {
   playerAttack(e, player, AI){
     const coords = e.getAttribute('data-x-y').split(',').map(Number);
     console.log(coords);
-    player.attack(coords[0], coords[1], AI, placeShips.placeShipsAI())
+    player.attack(coords[0], coords[1], AI, board2)
     e.classList.add('hit');
     player.endTurn();
   },
   
   AIattack(player){
-    const coords = player.aiAttackS(placeShips.placeShipsP1());
+    const coords = player.aiAttackS(board1);
+    
     const boardX = document.querySelector(`[data-x-y ="${coords[0]}, ${coords[1]}"]`)
     boardX.classList.add('hit');
     // console.log(boardX, coords);

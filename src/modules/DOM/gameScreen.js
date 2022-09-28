@@ -1,7 +1,7 @@
 import '../../styles/gameStyle.scss';
 import gameBoard from '../gameBoard';
 import Ship from '../battleShip';
-import placeShips from './placeShips';
+import {board1, board2} from './placeShips';
 import player from '../player';
 const gameScreen = {
   display(){
@@ -30,7 +30,7 @@ const gameScreen = {
   },
 
   renderBoard1(){
-    const gameBoard = placeShips.placeShipsP1().getBoard;
+    const gameBoard = board1.getBoard;
     // const board = new gameBoard;
     const boardContainer = document.createElement('div');
     //rows
