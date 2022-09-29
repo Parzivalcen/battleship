@@ -26,15 +26,29 @@ const gameLoop = {
   gameLoop(){
     const player1 = new player('one');
     const AI = new player('AI');
+    let allSunk2= board2.allSunk(shipsArray2);
+    let allSunk1 = board1.allSunk(shipsArray1);
     // I think using target is a better aproach than event listeners on every square
     document.querySelector('.player-2-board').addEventListener('click',(e)=>{
+      if(allSunk2 || allSunk1){
+        player1.endTurn();
+        AI.endTurn();
+        return;
+      }
+
       if(player1.turn) {
         this.playerAttack(e.target, player1, AI);
-        
-        this.AIattack(AI);
-        player1.turn = true;
+        // update player 1 all ships sunk status
+        allSunk2 = board2.allSunk(shipsArray2);
+        if(AI.turn){
+          this.AIattack(AI);
+          // update player 2 all ships sunk status
+          allSunk1 = board1.allSunk(shipsArray1);
+          player1.turn = true;
+        }
       }
     })
+
   }
 };
 export default gameLoop;
