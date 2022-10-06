@@ -47,6 +47,7 @@ const gameLoop = {
         const title = document.querySelector('.winner-title');
         allSunk2 ? title.innerHTML = 'Player 1 won the battle!' :
         title.innerHTML = 'A.I. won the Battle!';
+        document.querySelector('.winner-display').setAttribute('data-visible', true);
         return;
       }
     })

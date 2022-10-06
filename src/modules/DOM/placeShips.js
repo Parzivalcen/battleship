@@ -1,6 +1,6 @@
 import Ship from "../battleShip";
 import gameBoard from "../gameBoard";
-
+// maybe you can convert this into a obj that returns board after being placed in another component
 const board1 = new gameBoard();
 const board2 = new gameBoard();
 

@@ -72,6 +72,17 @@ const gameScreen = {
     }
     return boardContainer.innerHTML;
   },
+
+  clickOutsideModal(){
+    let modals = document.querySelectorAll('.modal');
+    modals.forEach((modal)=>{
+      modal.addEventListener('click', (e)=>{
+        if(e.target.classList.contains('modal')){
+          modal.setAttribute('data-visible', false);
+        }
+      });
+    });
+  }
 }
 
 export default gameScreen;
