@@ -9,11 +9,11 @@ const submarine = new Ship(2);
 const destroyer = new Ship(3);
 const battleShip = new Ship(4);
 const carrier = new Ship(5);
-board1.placeShip(patrol, 1, 1);
-board1.placeShip(submarine, 2, 1);
-board1.placeShip(destroyer, 3, 1);
-board1.placeShip(battleShip, 4, 1);
-board1.placeShip(carrier, 5, 1);
+// board1.placeShip(patrol, 1, 1);
+// board1.placeShip(submarine, 2, 1);
+// board1.placeShip(destroyer, 3, 1);
+// board1.placeShip(battleShip, 4, 1);
+// board1.placeShip(carrier, 5, 1);
 
 const patrol2 = new Ship(1);
 const submarine2 = new Ship(2);

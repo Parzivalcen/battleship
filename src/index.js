@@ -6,6 +6,7 @@ import './styles/mainStyles.scss'
 const body = document.body
 const title = document.createElement('h1');
 body.appendChild(placeShipsScreen.board())
+placeShipsScreen.ships();
 // body.appendChild(gameScreen.display());
 // body.appendChild(winner.display())
 // gameScreen.clickOutsideModal();
