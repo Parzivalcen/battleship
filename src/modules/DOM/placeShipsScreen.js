@@ -19,18 +19,43 @@ const placeShipsScreen = {
   ships(){
     const player1BoardObj = board1;
     const player1Board = player1BoardObj.getBoard;
-    const carrierPlaced = false;
+    let carrierPlaced = false;
+    let battleShipPlaced = false;
+    let destroyerPlaced = false;
+    let submarinePlaced = false;
+    let patrolPlaced = false;
     // Add envent listener to board
     const board = document.querySelector('.add-ships');
     board.addEventListener('click', (e)=>{
       //get x and y values
       const square = e.target;
       const coords = e.target.getAttribute('data-x-y').split(',').map(Number);
-      player1BoardObj.placeShip(shipsArray1[4], coords[0], coords[1]);
-      console.log(square);
-      console.log(player1Board[coords[0]][coords[1]])
+      let shipLength = 0;
+      if(!carrierPlaced){
+        player1BoardObj.placeShip(shipsArray1[4], coords[0], coords[1]);
+        console.log(square);
+        console.log(player1Board[coords[0]][coords[1]])
+        shipLength = shipsArray1[4].length;
+        carrierPlaced = true
+      }else if(!battleShipPlaced){
+        player1BoardObj.placeShip(shipsArray1[3], coords[0], coords[1]);
+        shipLength = shipsArray1[3].length;
+        battleShipPlaced = true
+      }else if(!destroyerPlaced){
+        player1BoardObj.placeShip(shipsArray1[2], coords[0], coords[1]);
+        shipLength = shipsArray1[2].length;
+        destroyerPlaced = true
+      }else if(!submarinePlaced){
+        player1BoardObj.placeShip(shipsArray1[1], coords[0], coords[1]);
+        shipLength = shipsArray1[1].length;
+        submarinePlaced = true
+      }else if(!patrolPlaced){
+        player1BoardObj.placeShip(shipsArray1[0], coords[0], coords[1]);
+        shipLength = shipsArray1[0].length;
+        patrolPlaced = true
+      }
 
-      for(let i = 0; i < shipsArray1[4].length; i++){
+      for(let i = 0; i < shipLength; i++){
         if(player1Board[coords[0]][coords[1]+i].shipName){
           const squares = board.querySelector(`[data-x-y = "${coords[0]}, ${coords[1]+i}"]`)
           squares.classList.add('ship');
