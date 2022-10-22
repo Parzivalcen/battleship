@@ -7,6 +7,7 @@ const body = document.body
 const title = document.createElement('h1');
 body.appendChild(placeShipsScreen.board())
 placeShipsScreen.ships();
+// placeShipsScreen.showGameScreen(body);
 // body.appendChild(gameScreen.display());
 // body.appendChild(winner.display())
 // gameScreen.clickOutsideModal();

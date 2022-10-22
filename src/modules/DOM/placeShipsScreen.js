@@ -1,12 +1,16 @@
 import '../../styles/gameStyle.scss';
 import player from '../player';
+import winner from './displayWinner';
+import gameLoop from './gameLoop';
+import gameScreen from './gameScreen';
 import { board1, shipsArray1 } from './placeShips';
 const placeShipsScreen = {
   board(){
     const boardContainer = document.createElement('div');
-    boardContainer.classList.add('container', 'game-screen-container')
+    boardContainer.classList.add('container', 'game-screen-container', 'place-ship-container')
     const board = this.renderBoard();
     boardContainer.innerHTML = `
+      <h1 class="place-ship-title">Place your carrier<h1>
       <div class="player-board add-ships">
         ${board}
       </div>
@@ -27,6 +31,7 @@ const placeShipsScreen = {
     // Add envent listener to board
     const board = document.querySelector('.add-ships');
     board.addEventListener('click', (e)=>{
+      let currentShip = '';
       //get x and y values
       const square = e.target;
       const coords = e.target.getAttribute('data-x-y').split(',').map(Number);
@@ -37,22 +42,27 @@ const placeShipsScreen = {
         console.log(player1Board[coords[0]][coords[1]])
         shipLength = shipsArray1[4].length;
         carrierPlaced = true
+        currentShip = 'battleship';
       }else if(!battleShipPlaced){
         player1BoardObj.placeShip(shipsArray1[3], coords[0], coords[1]);
         shipLength = shipsArray1[3].length;
         battleShipPlaced = true
+        currentShip = 'destroyer';
       }else if(!destroyerPlaced){
         player1BoardObj.placeShip(shipsArray1[2], coords[0], coords[1]);
         shipLength = shipsArray1[2].length;
         destroyerPlaced = true
+        currentShip = 'submarine';
       }else if(!submarinePlaced){
         player1BoardObj.placeShip(shipsArray1[1], coords[0], coords[1]);
         shipLength = shipsArray1[1].length;
         submarinePlaced = true
+        currentShip = 'patrol';
       }else if(!patrolPlaced){
         player1BoardObj.placeShip(shipsArray1[0], coords[0], coords[1]);
         shipLength = shipsArray1[0].length;
         patrolPlaced = true
+        currentShip = false;
       }
 
       for(let i = 0; i < shipLength; i++){
@@ -62,6 +72,8 @@ const placeShipsScreen = {
         }
 
       }
+      currentShip ? document.querySelector('.place-ship-title').innerHTML = `place your ${currentShip}` : document.querySelector('.place-ship-title').innerHTML = `<button class='play-btn'>play</button>`;
+      this.showGameScreen(document.body);
     });
     //First click places carrier and turns a boolean of carrier place to true
   },
@@ -85,6 +97,21 @@ const placeShipsScreen = {
     }
     return boardContainer.innerHTML;
   },
+  showGameScreen(body){
+    console.log('im show game')
+    const playBtn = document.querySelector('.play-btn');
+    
+    console.log('im show', playBtn)
+    if(playBtn){
+      document.querySelector('.place-ship-container').remove()
+      body.appendChild(gameScreen.display());
+      body.appendChild(winner.display())
+      gameScreen.clickOutsideModal();
+      gameLoop.gameLoop();
+    }
+
+
+  }
 }
 Object.freeze(placeShipsScreen);
 export default placeShipsScreen;
