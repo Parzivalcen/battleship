@@ -14,12 +14,20 @@ class gameBoard {
     return board;
   }
 
-  placeShip(ship, x, y){
-    if(x < 9 && y < 9){
+  placeShip(ship, x, y, axis = 'y'){
+    console.log('placeShip', x, y);
+    if(x <= 9 && y <= 9 && axis === 'x'){
       for(let i = 0 ; i < ship.length; i++){
         this.getBoard[x][y + i] = {shipName: ship, 
           shipSquareID: i, hitted: 0, sunk: ship.sunk};
         }
+      }else {
+        for(let i = 0 ; i < ship.length; i++){
+          console.log(i);
+          this.getBoard[x + i][y] = {shipName: ship, 
+            shipSquareID: i, hitted: 0, sunk: ship.sunk};
+          console.log(this.getBoard[x + i][y]);
+          }
       }
   }
 

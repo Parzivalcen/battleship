@@ -1,9 +1,12 @@
 import '../../styles/gameStyle.scss';
+import '../../styles/mainStyles.scss'
 import player from '../player';
 import winner from './displayWinner';
 import gameLoop from './gameLoop';
 import gameScreen from './gameScreen';
 import { board1, shipsArray1 } from './placeShips';
+
+let axis = 'x';
 const placeShipsScreen = {
   board(){
     const boardContainer = document.createElement('div');
@@ -11,9 +14,10 @@ const placeShipsScreen = {
     const board = this.renderBoard();
     boardContainer.innerHTML = `
       <h1 class="place-ship-title">Place your carrier<h1>
-      <div class="player-board add-ships">
-        ${board}
-      </div>
+      <button class="change-axis">Change axis</button>
+        <div class="player-board add-ships">
+          ${board}
+        </div>
     `
     return boardContainer;
   },
@@ -35,21 +39,22 @@ const placeShipsScreen = {
       //get x and y values
       const square = e.target;
       const coords = e.target.getAttribute('data-x-y').split(',').map(Number);
+      console.log(coords);
       let shipLength = 0;
       if(!carrierPlaced){
-        player1BoardObj.placeShip(shipsArray1[4], coords[0], coords[1]);
+        player1BoardObj.placeShip(shipsArray1[4], coords[0], coords[1], axis);
         console.log(square);
         console.log(player1Board[coords[0]][coords[1]])
         shipLength = shipsArray1[4].length;
         carrierPlaced = true
         currentShip = 'battleship';
       }else if(!battleShipPlaced){
-        player1BoardObj.placeShip(shipsArray1[3], coords[0], coords[1]);
+        player1BoardObj.placeShip(shipsArray1[3], coords[0], coords[1], axis);
         shipLength = shipsArray1[3].length;
         battleShipPlaced = true
         currentShip = 'destroyer';
       }else if(!destroyerPlaced){
-        player1BoardObj.placeShip(shipsArray1[2], coords[0], coords[1]);
+        player1BoardObj.placeShip(shipsArray1[2], coords[0], coords[1], axis);
         shipLength = shipsArray1[2].length;
         destroyerPlaced = true
         currentShip = 'submarine';
@@ -68,6 +73,9 @@ const placeShipsScreen = {
       for(let i = 0; i < shipLength; i++){
         if(player1Board[coords[0]][coords[1]+i].shipName){
           const squares = board.querySelector(`[data-x-y = "${coords[0]}, ${coords[1]+i}"]`)
+          squares.classList.add('ship');
+        }else if(player1Board[coords[0]+i][coords[1]].shipName){
+          const squares = board.querySelector(`[data-x-y = "${coords[0]+i}, ${coords[1]}"]`)
           squares.classList.add('ship');
         }
 
