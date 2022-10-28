@@ -13,8 +13,8 @@ const placeShipsScreen = {
     boardContainer.classList.add('container', 'game-screen-container', 'place-ship-container')
     const board = this.renderBoard();
     boardContainer.innerHTML = `
-      <h1 class="place-ship-title">Place your carrier<h1>
-      <button class="change-axis">Change axis</button>
+    <h1 class="place-ship-title">Place your carrier<h1>
+    <button class="change-axis">Change axis</button>
         <div class="player-board add-ships">
           ${board}
         </div>
@@ -32,9 +32,12 @@ const placeShipsScreen = {
     let destroyerPlaced = false;
     let submarinePlaced = false;
     let patrolPlaced = false;
+    // Change where ship is going to be placed
+    this.changeAxis();
     // Add envent listener to board
     const board = document.querySelector('.add-ships');
     board.addEventListener('click', (e)=>{
+      console.log('click', axis)
       let currentShip = '';
       //get x and y values
       const square = e.target;
@@ -49,6 +52,7 @@ const placeShipsScreen = {
         carrierPlaced = true
         currentShip = 'battleship';
       }else if(!battleShipPlaced){
+        
         player1BoardObj.placeShip(shipsArray1[3], coords[0], coords[1], axis);
         shipLength = shipsArray1[3].length;
         battleShipPlaced = true
@@ -59,12 +63,12 @@ const placeShipsScreen = {
         destroyerPlaced = true
         currentShip = 'submarine';
       }else if(!submarinePlaced){
-        player1BoardObj.placeShip(shipsArray1[1], coords[0], coords[1]);
+        player1BoardObj.placeShip(shipsArray1[1], coords[0], coords[1], axis);
         shipLength = shipsArray1[1].length;
         submarinePlaced = true
         currentShip = 'patrol';
       }else if(!patrolPlaced){
-        player1BoardObj.placeShip(shipsArray1[0], coords[0], coords[1]);
+        player1BoardObj.placeShip(shipsArray1[0], coords[0], coords[1], axis);
         shipLength = shipsArray1[0].length;
         patrolPlaced = true
         currentShip = false;
@@ -72,8 +76,10 @@ const placeShipsScreen = {
 
       for(let i = 0; i < shipLength; i++){
         if(player1Board[coords[0]][coords[1]+i].shipName){
-          const squares = board.querySelector(`[data-x-y = "${coords[0]}, ${coords[1]+i}"]`)
-          squares.classList.add('ship');
+          if(coords[0] !==9 && coords[1] !==9){
+            const squares = board.querySelector(`[data-x-y = "${coords[0]}, ${coords[1]+i}"]`)
+            squares.classList.add('ship');
+          }
         }else if(player1Board[coords[0]+i][coords[1]].shipName){
           const squares = board.querySelector(`[data-x-y = "${coords[0]+i}, ${coords[1]}"]`)
           squares.classList.add('ship');
@@ -81,9 +87,18 @@ const placeShipsScreen = {
 
       }
       currentShip ? document.querySelector('.place-ship-title').innerHTML = `place your ${currentShip}` : document.querySelector('.place-ship-title').innerHTML = `<button class='play-btn'>play</button>`;
+      
       this.showGameScreen(document.body);
     });
     //First click places carrier and turns a boolean of carrier place to true
+  },
+
+  changeAxis(){
+    const changeAxisBtn = document.querySelector('.change-axis');
+    changeAxisBtn.addEventListener('click', ()=>{
+      axis === 'x'? axis = 'y' : axis = 'x';
+      // console.log(axis);
+    })
   },
 
   renderBoard(){

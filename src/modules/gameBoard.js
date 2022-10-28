@@ -14,7 +14,7 @@ class gameBoard {
     return board;
   }
 
-  placeShip(ship, x, y, axis = 'y'){
+  placeShip(ship, x, y, axis = 'x'){
     console.log('placeShip', x, y);
     if(x <= 9 && y <= 9 && axis === 'x'){
       for(let i = 0 ; i < ship.length; i++){
