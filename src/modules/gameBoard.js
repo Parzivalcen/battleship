@@ -16,12 +16,14 @@ class gameBoard {
 
   placeShip(ship, x, y, axis = 'x'){
     console.log('placeShip', x, y);
+    // How do you check if it is at border??
+    // I dont think is worth it to keep trying just style it and finish the lesson.
     if(x <= 9 && y <= 9 && axis === 'x'){
       for(let i = 0 ; i < ship.length; i++){
         this.getBoard[x][y + i] = {shipName: ship, 
           shipSquareID: i, hitted: 0, sunk: ship.sunk};
         }
-      }else {
+      }else if(axis === 'y') {
         for(let i = 0 ; i < ship.length; i++){
           console.log(i);
           this.getBoard[x + i][y] = {shipName: ship, 

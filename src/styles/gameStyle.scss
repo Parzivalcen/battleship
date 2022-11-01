@@ -21,8 +21,15 @@
         background-color: black;
       }
       .hit{
-        background-color: red;
+        background-color: rgb(197, 0, 0);
       }
+    }
+  }
+  .player-1-board{
+    border: 1px solid rgb(33, 0, 180) ;
+    .square{
+      border: 1px solid rgb(33, 0, 180) !important;
+      
     }
   }
 }

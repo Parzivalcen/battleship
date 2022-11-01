@@ -1,5 +1,6 @@
 import '../../styles/gameStyle.scss';
 import '../../styles/mainStyles.scss'
+import '../../styles/placeShip.scss';
 import player from '../player';
 import winner from './displayWinner';
 import gameLoop from './gameLoop';
@@ -13,8 +14,9 @@ const placeShipsScreen = {
     boardContainer.classList.add('container', 'game-screen-container', 'place-ship-container')
     const board = this.renderBoard();
     boardContainer.innerHTML = `
+    <h1 class="place-ship-title">BattleShip<h1>
     <h1 class="place-ship-title">Place your carrier<h1>
-    <button class="change-axis">Change axis</button>
+    <button class="change-axis">Change axis: ${axis}</button>
         <div class="player-board add-ships">
           ${board}
         </div>
@@ -76,7 +78,7 @@ const placeShipsScreen = {
 
       for(let i = 0; i < shipLength; i++){
         if(player1Board[coords[0]][coords[1]+i].shipName){
-          if(coords[0] !==9 && coords[1] !==9){
+          if(coords[0] !==10 && coords[1] !==10){
             const squares = board.querySelector(`[data-x-y = "${coords[0]}, ${coords[1]+i}"]`)
             squares.classList.add('ship');
           }
@@ -86,17 +88,27 @@ const placeShipsScreen = {
         }
 
       }
-      currentShip ? document.querySelector('.place-ship-title').innerHTML = `place your ${currentShip}` : document.querySelector('.place-ship-title').innerHTML = `<button class='play-btn'>play</button>`;
+      // check if all ships have been placed, render game board if all placed
+      document.querySelector('.place-ship-title').innerHTML = `place your ${currentShip}` 
+      if(!currentShip){
+        document.querySelector('.place-ship-title').innerHTML = `<button class='play-btn'>play</button>`;
+        console.log(player1Board)
+      }
       
       this.showGameScreen(document.body);
     });
-    //First click places carrier and turns a boolean of carrier place to true
+    // board.addEventListener('mouseover', (e)=>{
+    //   e.target.classList.add('boad-hover-effect');
+    // });
+    //First click places carrier and turns a boolean of carrier place to true\
+    
   },
 
   changeAxis(){
     const changeAxisBtn = document.querySelector('.change-axis');
     changeAxisBtn.addEventListener('click', ()=>{
       axis === 'x'? axis = 'y' : axis = 'x';
+      document.querySelector('.change-axis').innerHTML = `Change axis: ${axis}`
       // console.log(axis);
     })
   },
