@@ -141,6 +141,7 @@ const placeShipsScreen = {
       document.querySelector('.place-ship-container').remove()
       body.appendChild(gameScreen.display());
       body.appendChild(winner.display())
+      winner.playAgain();
       gameScreen.clickOutsideModal();
       gameLoop.gameLoop();
     }

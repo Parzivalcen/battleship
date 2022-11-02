@@ -5,7 +5,9 @@ const gameLoop = {
     const coords = e.getAttribute('data-x-y').split(',').map(Number);
     player.attack(coords[0], coords[1], AI, board2)
     e.classList.add('hit');
+
     if(board2.getBoard[coords[0]][coords[1]].shipName){
+      e.classList.add('ship-hitted');
       board2.getBoard[coords[0]][coords[1]].shipName.isSunk();
     }
     player.endTurn();
@@ -17,6 +19,10 @@ const gameLoop = {
     const boardX = document.querySelector(`[data-x-y ="${coords[0]}, ${coords[1]}"]`)
     // console.log(board1.getBoard[coords[0]][coords[1]])
     boardX.classList.add('hit');
+    if(board1.getBoard[coords[0]][coords[1]].shipName){
+      boardX.classList.add('ship-hitted');
+      board1.getBoard[coords[0]][coords[1]].shipName.isSunk();
+    }
     // console.log(boardX, coords);
     player.endTurn();
   },

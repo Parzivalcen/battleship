@@ -12,19 +12,22 @@ const gameScreen = {
 
     container.innerHTML =`
       <h1>BattleShip</h1>
-      <div>
-        <div class="player-1-board player-board">
-          ${board}
-        </div>
-        <h2>player 1</h2>
-      </div>
       
-      <div>
-        <div class="player-2-board player-board">
-          ${board2}
-        </div>
-        <h2>enemy waters</h2>
-      </div>
+        <div class="boards-container">
+
+          <div class="player-1-board player-board">
+            ${board}
+            <h2>player 1</h2>
+          </div>
+          
+          
+            <div class="player-2-board player-board">
+              ${board2}
+              <h2>enemy waters</h2>
+            </div>
+          </div>
+        
+      
   `
     return container;
   },

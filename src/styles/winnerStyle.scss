@@ -1,11 +1,12 @@
-.winner-display{
 
-}
 
 .winner-message{
-  border: 1px solid lime;
+  // border: 1px solid lime;
+  border-radius: 10px;
+  padding: 3vw;
   width: 20vw;
   height: 20vh;
   display: grid;
   place-content: center;
+  background-color: white;
 }

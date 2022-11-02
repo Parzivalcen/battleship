@@ -6,11 +6,16 @@ const winner = {
     winnerHtml.setAttribute('data-visible', false);
     winnerHtml.innerHTML = `
       <div class="winner-message">
-        <h1 class="winner-title title">${2} won the battle!</h1>
+        <h2 class="winner-title title">${2} won the battle!</h2>
         <button class="play-again-btn btn">Play again!</button>
       </div>
     `
     return winnerHtml;
+  },
+  playAgain(){
+    const playAgainBtn = document.querySelector('.play-again-btn');
+    console.log(playAgainBtn);
+    playAgainBtn.addEventListener('click', _ => location.reload());
   }
 }
 
